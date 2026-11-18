@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="3">
+    <iq:application
+        id="7a4f3f58-4f3c-4b42-9c39-000000000103"
+        type="watchface"
+        name="@Strings.AppName"
+        launcherIcon="@Drawables.LauncherIcon"
+        entry="GolfStyleApp"
+        minApiLevel="5.1.0">
+        <iq:products>
+            <!-- Garmin Approach S70 42mm / 390x390 / round AMOLED. Product id from CIQ Store device slug. Verify with SDK device list after installation. -->
+            <iq:product id="approachs7042mm"/>
+        </iq:products>
+        <iq:permissions>
+            <!-- System time/battery need no permission. UserProfile/ActivityMonitor are candidates for HR/profile data. -->
+            <iq:uses-permission id="UserProfile"/>
+            <!-- Communications for later golf-data sync is intentionally not enabled in the first build; watchfaces require Background with Communications. -->
+        </iq:permissions>
+        <iq:languages>
+            <iq:language>deu</iq:language>
+            <iq:language>eng</iq:language>
+        </iq:languages>
+    </iq:application>
+</iq:manifest>

@@ -1,0 +1,9 @@
+<resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <watchface-config>
+        <styles>
+            <style id="1" label="@Strings.styleFashion" default="true"/>
+            <style id="2" label="@Strings.styleSport"/>
+            <style id="3" label="@Strings.styleData"/>
+        </styles>
+    </watchface-config>
+</resources>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Garmin S70 Golf Display Mockups</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --bg: #11140f;
+    --panel: #181d18;
+    --ink: #f8f4ea;
+    --muted: #aaa99f;
+    --line: rgba(255,255,255,.12);
+    --gold: #d7b56d;
+    --green: #7fc77b;
+    --blue: #7fb3ff;
+    --red: #ff846f;
+  }
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #28301f 0, #10120f 45%, #080908 100%);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+  header { padding: 32px 32px 12px; max-width: 1220px; }
+  h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: -.03em; }
+  .sub { color: var(--muted); max-width: 850px; line-height: 1.55; }
+  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  button {
+    border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink);
+    padding: 9px 13px; border-radius: 999px; cursor: pointer; font-weight: 650;
+  }
+  button.active { background: var(--gold); color: #171108; border-color: transparent; }
+  main { display: grid; grid-template-columns: repeat(3, minmax(330px, 1fr)); gap: 24px; padding: 20px 32px 34px; max-width: 1280px; }
+  .card { border: 1px solid var(--line); border-radius: 28px; padding: 20px; background: rgba(255,255,255,.055); box-shadow: 0 24px 70px rgba(0,0,0,.36); }
+  .card h2 { margin: 0 0 4px; font-size: 18px; }
+  .card p { margin: 0 0 16px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+  .watch-wrap { display: grid; place-items: center; padding: 10px 0 16px; }
+  .watch {
+    width: 454px; height: 454px; border-radius: 50%; position: relative; overflow: hidden;
+    transform: scale(.68); transform-origin: center; margin: -72px;
+    background: #050605; border: 12px solid #0e0f0d;
+    box-shadow: inset 0 0 0 2px #2b2b27, 0 0 0 8px #20211d, 0 30px 70px rgba(0,0,0,.65);
+  }
+  .watch::after { content:""; position:absolute; inset:10px; border-radius:50%; border:1px solid rgba(255,255,255,.07); pointer-events:none; }
+  .face { position:absolute; inset:0; border-radius:50%; padding: 42px; }
+  .status { position:absolute; top:24px; left:78px; right:78px; display:flex; justify-content:space-between; align-items:center; color:rgba(255,255,255,.62); font-size:18px; letter-spacing:.04em; }
+  .safe-ring { position:absolute; inset:38px; border-radius:50%; border:1px dashed rgba(255,255,255,.075); pointer-events:none; }
+  .sysbar { position:absolute; top:44px; left:82px; right:82px; display:grid; grid-template-columns: 1.05fr .82fr .82fr 1fr; gap:5px; align-items:center; z-index:5; color:rgba(255,255,255,.82); font-size:14px; font-weight:760; letter-spacing:-.03em; }
+  .sysbar.compact { left:104px; right:104px; grid-template-columns: 1fr 1fr 1fr; }
+  .sysbar.time-only { top:42px; left:142px; right:142px; grid-template-columns: 1fr; }
+  .sysbar .pill { display:flex; align-items:center; justify-content:center; gap:4px; min-height:25px; border-radius:999px; background:rgba(0,0,0,.30); border:1px solid rgba(255,255,255,.10); }
+  .sysbar.time-only .pill { min-height:34px; border-radius:999px; background:rgba(127,179,255,.13); border-color:rgba(127,179,255,.28); box-shadow:0 0 22px rgba(127,179,255,.12); }
+  .sysbar .clock { color:#fff; background:rgba(255,255,255,.055); border-color:rgba(255,255,255,.07); font-size:15px; justify-content:center; }
+  .sysbar.time-only .clock { font-size:24px; font-weight:900; letter-spacing:-.06em; }
+  .ico { opacity:.82; font-size:13px; }
+  .edge { position:absolute; z-index:4; pointer-events:none; }
+  .edge-battery { inset:18px; border-radius:50%; background: conic-gradient(from 292deg, var(--gold) 0 82deg, rgba(255,255,255,.10) 82deg 100deg, transparent 100deg 360deg); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #000 calc(100% - 6px)); mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #000 calc(100% - 6px)); }
+
+  .edge-hr { left:27px; top:151px; width:32px; height:152px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#ff8d82; font-weight:850; font-size:16px; }
+  .edge-hr::before, .edge-hr::after { content:""; width:4px; border-radius:999px; background:linear-gradient(#ff8d82, rgba(255,141,130,.12)); }
+  .edge-hr::before { height:48px; } .edge-hr::after { height:34px; transform:rotate(180deg); }
+  .edge-hr small { font-size:10px; color:rgba(255,255,255,.58); letter-spacing:.12em; writing-mode:vertical-rl; text-transform:uppercase; }
+  .edge-msg { right:27px; top:165px; width:32px; height:124px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#7fb3ff; }
+  .edge-msg .bubble { width:24px; height:18px; border:2px solid currentColor; border-radius:7px; position:relative; }
+  .edge-msg .bubble::after { content:""; position:absolute; right:3px; bottom:-5px; width:8px; height:8px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:skew(20deg); }
+  .edge-msg b { font-size:15px; line-height:1; }
+  .edge-msg i { width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.9; box-shadow: 0 10px 0 currentColor, 0 20px 0 currentColor; }
+  .fashion .edge-battery { background: conic-gradient(from 292deg, #d7b56d 0 82deg, rgba(215,181,109,.18) 82deg 100deg, transparent 100deg 360deg); }
+
+  .fashion .edge-hr { color:#d58f85; } .fashion .edge-msg { color:#b8c9eb; }
+  .sport .edge-battery { background: conic-gradient(from 214deg, #7fc77b 0 82deg, rgba(127,199,123,.18) 82deg 106deg, transparent 106deg 360deg); }
+
+  .sport .edge-hr { color:#ff846f; top:144px; } .sport .edge-msg { color:#7fc77b; top:157px; }
+  .data .edge-battery { inset:16px; background: conic-gradient(from 292deg, #7fb3ff 0 82deg, rgba(127,179,255,.16) 82deg 100deg, transparent 100deg 360deg); }
+
+  .data .edge-hr { left:30px; top:165px; height:124px; font-size:14px; } .data .edge-msg { right:30px; top:171px; height:112px; }
+  .battery { width:32px; height:14px; border:2px solid currentColor; border-radius:4px; position:relative; }
+  .battery::after { content:""; position:absolute; right:-6px; top:3px; width:4px; height:6px; background: currentColor; border-radius:1px; }
+  .battery::before { content:""; position:absolute; left:2px; top:2px; bottom:2px; width:21px; background: currentColor; border-radius:2px; }
+  .mode { font-size: 11px; text-transform: uppercase; letter-spacing: .16em; color: var(--gold); }
+  .specs { display:grid; gap:8px; margin-top: 8px; font-size:13px; color:var(--muted); }
+  .specs b { color:var(--ink); }
+  .note { grid-column: 1 / -1; color: var(--muted); border: 1px solid var(--line); border-radius: 20px; padding: 14px 18px; background: rgba(0,0,0,.16); line-height:1.5; }
+
+  /* Fashion */
+  .fashion .face { background: radial-gradient(circle at 50% 40%, #26301e 0, #0e120d 54%, #050605 100%); }
+  .fashion .ring { position:absolute; inset:48px; border-radius:50%; border:1px solid rgba(215,181,109,.42); }
+  .fashion .time { position:absolute; top:101px; left:0; right:0; text-align:center; font-family: Georgia, serif; font-size:61px; letter-spacing:-.06em; color:#f4ead2; }
+  .fashion .date { position:absolute; top:166px; left:0; right:0; text-align:center; color:#c9b789; font-size:15px; letter-spacing:.16em; text-transform:uppercase; }
+  .fashion .hcp { position:absolute; top:207px; left:132px; right:132px; height:72px; border-radius:999px; border:1px solid rgba(215,181,109,.54); display:grid; place-items:center; background:rgba(215,181,109,.09); }
+  .fashion .hcp strong { font-family: Georgia, serif; font-size:34px; line-height:1; }
+  .fashion .hcp span { display:block; text-align:center; font-size:11px; color:#d8cba7; letter-spacing:.18em; }
+  .fashion .metric { position:absolute; width:105px; height:62px; display:grid; place-items:center; color:#f8f4ea; }
+  .fashion .metric small { display:block; color:#9e9c91; font-size:11px; text-align:center; text-transform:uppercase; letter-spacing:.12em; }
+  .fashion .metric b { font-size:21px; font-family: Georgia, serif; }
+  .fashion .m1 { left:69px; bottom:100px; } .fashion .m2 { right:69px; bottom:100px; } .fashion .m3 { left:174px; bottom:63px; }
+
+  /* Sport */
+  .sport .face { background: conic-gradient(from 210deg, rgba(127,199,123,.28), #07100b 22%, #040604 68%, rgba(127,179,255,.22)); }
+  .sport .time { position:absolute; left:76px; top:88px; font-size:50px; font-weight:900; letter-spacing:-.08em; }
+  .sport .hcp { position:absolute; right:76px; top:105px; width:92px; height:92px; border-radius:50%; background:rgba(127,199,123,.18); border:6px solid var(--green); display:grid; place-items:center; text-align:center; }
+  .sport .hcp strong { font-size:36px; line-height:1; } .sport .hcp span { font-size:11px; color:#b8e5b5; text-transform:uppercase; font-weight:800; }
+  .sport .arc { position:absolute; left:74px; bottom:78px; width:306px; height:142px; border-radius:0 0 155px 155px; border:10px solid rgba(255,255,255,.08); border-top:0; }
+  .sport .bar { position:absolute; left:88px; right:88px; height:11px; border-radius:99px; background:rgba(255,255,255,.12); overflow:hidden; }
+  .sport .bar span { display:block; height:100%; background:linear-gradient(90deg,var(--green),var(--blue)); border-radius:inherit; }
+  .sport .b1 { top:227px } .sport .b2 { top:267px } .sport .b3 { top:307px }
+  .sport .lab { position:absolute; left:88px; color:#dcebdd; font-size:13px; font-weight:750; } .sport .l1{top:205px}.sport .l2{top:245px}.sport .l3{top:285px}
+  .sport .val { position:absolute; right:88px; color:#fff; font-size:13px; font-weight:850; } .sport .v1{top:205px}.sport .v2{top:245px}.sport .v3{top:285px}
+
+  /* Data */
+  .data .face { background: #030504; }
+  .data .grid { position:absolute; left:74px; right:74px; top:86px; bottom:78px; display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 72px 72px 72px 58px; gap:7px; }
+  .tile { border:1px solid rgba(255,255,255,.11); border-radius:16px; padding:10px; background:rgba(255,255,255,.045); }
+  .tile.wide { grid-column: span 2; display:flex; align-items:center; justify-content:space-between; }
+  .tile label { display:block; color:#8e968d; font-size:10px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:4px; }
+  .tile strong { font-size:22px; letter-spacing:-.04em; } .tile small { color:#aab2aa; font-size:10px; }
+  .trend { color:var(--green); font-weight:800; } .bad { color:var(--red); }
+  .spark { display:flex; gap:4px; align-items:end; height:38px; width:126px; }
+  .spark i { flex:1; border-radius:4px 4px 0 0; background:linear-gradient(var(--blue), var(--green)); opacity:.9; }
+  @media (max-width: 1160px) { main { grid-template-columns: 1fr; } .watch { transform: scale(.78); margin:-48px;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="mode">Mockup · Garmin Approach S70 · 454×454 px</div>
+  <h1>Golf Display Design: drei Richtungen</h1>
+  <div class="sub">Optimiert für die höchste S70-Auflösung: Fokus auf aktuelles HCP, Garmin Handicap-Statistiken und konfigurierbare Durchschnittswerte der letzten 10 bis 100 Runden. Uhrzeit, Batterie, Herzfrequenz und Nachrichten sind in jeder Variante dauerhaft sichtbar; freie Randbereiche werden für grafische Statusanzeigen genutzt.</div>
+  <div class="toolbar">
+    <button class="active" data-rounds="10">Ø letzte 10 Runden</button>
+    <button data-rounds="25">Ø letzte 25 Runden</button>
+    <button data-rounds="100">Ø letzte 100 Runden</button>
+  </div>
+</header>
+<main>
+  <section class="card">
+    <h2>Fashion / Premium</h2>
+    <p>Für Uhrträger, die Golfdaten subtil und hochwertig sehen wollen. HCP zentral, weitere Werte wie Schmuckkomplikationen.</p>
+    <div class="watch-wrap"><div class="watch fashion">
+      <div class="face"><div class="ring"></div><div class="safe-ring"></div></div>
+      <div class="edge edge-battery" title="Batterie"></div><div class="edge edge-hr"><small>Puls</small><b>74</b></div><div class="edge edge-msg"><span class="bubble"></span><b>3</b></div>
+      <div class="time">10:08</div><div class="date">Mi · Royal Golf</div>
+      <div class="hcp"><div><strong>14.2</strong><span>HCP Index</span></div></div>
+      <div class="metric m1"><div><b data-score>84.6</b><small>Ø Score</small></div></div>
+      <div class="metric m2"><div><b data-gir>42%</b><small>GIR</small></div></div>
+      <div class="metric m3"><div><b data-putts>31.8</b><small>Putts</small></div></div>
+    </div></div>
+    <div class="specs"><div><b>Stark:</b> Alltag, Mode, Premium-Look</div><div><b>Schwach:</b> weniger Daten auf einen Blick</div></div>
+  </section>
+  <section class="card">
+    <h2>Sport / Performance</h2>
+    <p>Für aktive Golfer: klare Leistungsbalken, Trends und schnelle Lesbarkeit auf dem Platz.</p>
+    <div class="watch-wrap"><div class="watch sport">
+      <div class="face"><div class="safe-ring"></div></div>
+      <div class="edge edge-battery" title="Batterie"></div><div class="edge edge-hr"><small>HR</small><b>74</b></div><div class="edge edge-msg"><i></i><b>3</b></div>
+      <div class="time">10:08</div><div class="hcp"><div><strong>14.2</strong><span>HCP</span></div></div>
+      <div class="lab l1">Scoring Avg</div><div class="val v1" data-score>84.6</div><div class="bar b1"><span style="width:68%"></span></div>
+      <div class="lab l2">Fairways</div><div class="val v2" data-fw>57%</div><div class="bar b2"><span style="width:57%"></span></div>
+      <div class="lab l3">GIR</div><div class="val v3" data-gir>42%</div><div class="bar b3"><span style="width:42%"></span></div>
+      <div class="arc"></div>
+    </div></div>
+    <div class="specs"><div><b>Stark:</b> sportliche Motivation, direkte Trends</div><div><b>Schwach:</b> optisch weniger elegant im Alltag</div></div>
+  </section>
+  <section class="card">
+    <h2>Data / Analyst</h2>
+    <p>Für Daten-orientierte Uhrträger: maximale Informationsdichte, kleine Kacheln, Trend-Sparkline.</p>
+    <div class="watch-wrap"><div class="watch data">
+      <div class="face"><div class="safe-ring"></div></div>
+      <div class="edge edge-battery" title="Batterie"></div><div class="edge edge-hr"><small>HR</small><b>74</b></div><div class="edge edge-msg"><span class="bubble"></span><b>3</b></div>
+      <div class="sysbar time-only"><span class="pill clock">10:08</span></div>
+      <div class="grid">
+        <div class="tile wide"><div><label>HCP Index</label><strong>14.2</strong> <small class="trend">▼ 0.3</small></div><div class="spark"><i style="height:33%"></i><i style="height:48%"></i><i style="height:42%"></i><i style="height:60%"></i><i style="height:50%"></i><i style="height:72%"></i><i style="height:68%"></i><i style="height:80%"></i></div></div>
+        <div class="tile"><label>Ø Score</label><strong data-score>84.6</strong><small> Ziel 82</small></div>
+        <div class="tile"><label>Putts</label><strong data-putts>31.8</strong><small class="trend"> -1.1</small></div>
+        <div class="tile"><label>GIR</label><strong data-gir>42%</strong><small class="trend"> +4%</small></div>
+        <div class="tile"><label>FW Hit</label><strong data-fw>57%</strong><small>Driver</small></div>
+        <div class="tile wide"><div><label>Garmin HCP Stats</label><strong>Stable</strong><small> Short Game + · Tee −</small></div></div>
+      </div>
+    </div></div>
+    <div class="specs"><div><b>Stark:</b> maximale Auswertung</div><div><b>Schwach:</b> kleinteilig auf Uhrdistanz</div></div>
+  </section>
+  <div class="note"><b>Zusätzliche sinnvolle Golfdaten:</b> Fairways getroffen, Greens in Regulation, Putts/Runde, Scrambling, Sand Saves, Strafschläge, Trend zum persönlichen Zielscore, Strokes-Gained-Näherung je Bereich, letzter Garmin-HCP-Trend, nächster Tee-Time-/Platz-Kontext.</div>
+</main>
+<script>
+  const sets = {
+    10: {score:'84.6', gir:'42%', putts:'31.8', fw:'57%'},
+    25: {score:'85.1', gir:'39%', putts:'32.4', fw:'55%'},
+    100:{score:'87.3', gir:'35%', putts:'33.2', fw:'51%'}
+  };
+  document.querySelectorAll('button[data-rounds]').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const d = sets[btn.dataset.rounds];
+    document.querySelectorAll('[data-score]').forEach(e => e.textContent=d.score);
+    document.querySelectorAll('[data-gir]').forEach(e => e.textContent=d.gir);
+    document.querySelectorAll('[data-putts]').forEach(e => e.textContent=d.putts);
+    document.querySelectorAll('[data-fw]').forEach(e => e.textContent=d.fw);
+  }));
+</script>
+</body>
+</html>

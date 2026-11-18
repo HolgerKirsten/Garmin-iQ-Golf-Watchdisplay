@@ -1,0 +1,6 @@
+project.manifest = manifest.xml
+base.sourcePath = source
+base.resourcePath = resources
+
+# Build target after SDK install:
+# monkeyc -f monkey.jungle -o bin/GolfStyle.prg -y developer_key.der -d approachs7042mm

@@ -1,0 +1,6 @@
+<resources>
+    <string id="AppName">Golf Style Data Test</string>
+    <string id="styleFashion">Fashion</string>
+    <string id="styleSport">Sport</string>
+    <string id="styleData">Data</string>
+</resources>
